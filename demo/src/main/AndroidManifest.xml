@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.xcm.demo">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.DUMP" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
+    <uses-feature android:name="android.hardware.camera" />
+
+    <permission
+        android:name="com.xcm.demo.permission.READ_CONTENT"
+        android:label="Permission for read content provider"
+        android:protectionLevel="normal" />
+
+    <application
+        android:name=".base.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.example.xcm.demo.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".notification.TestNotificationActivity" />
+        <activity android:name=".aidl.TestAIDLActivity" />
+        <activity android:name=".handler.TestHandlerActivity" />
+        <activity android:name=".sensor.TestOrientationActivity" />
+        <activity android:name=".task.TestJobSchedulerActivity" />
+        <activity android:name=".notification.TestVibratorActivity" />
+        <activity android:name=".cmd.TestCmdActivity" />
+        <activity android:name=".ams.AMSDemoActivity" />
+        <activity android:name=".brightness.AutoBrightnessDemoActivity" />
+        <activity android:name=".ams.ProviderDemoActivity" />
+        <activity android:name=".view.TestPadListViewActivity" />
+        <activity android:name=".video.TestCameraActivity" />
+        <activity android:name=".sensor.TestLightSensorActivity" />
+        <activity android:name=".base.ContentActivity" />
+        <activity android:name=".view.TestPipActivity" />
+        <activity android:name=".sensor.TestGravityActivity" />
+        <activity android:name=".view.TestWindowActivity" />
+        <activity android:name=".network.OkHttpTestActivity" />
+        <activity android:name=".wms.TestWmsActivity" />
+        <activity android:name=".view.TestAnimationDrawableActivity" />
+        <activity android:name=".crash.TestCrashActivity" />
+        <activity android:name=".animation.TestViewAnimationActivity" />
+        <activity android:name=".input.TestInputRestrictedActivity" />
+
+        <service
+            android:name="com.example.xcm.demo.aidl.AIDLService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.hooligan.aidl" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".notification.NotificationListener"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".task.MyJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service android:name=".view.TestWindowService" />
+
+        <receiver android:name=".aidl.MyReceiver">
+            <intent-filter>
+                <action android:name="test" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".ams.DemoProvider"
+            android:authorities="com.xcm.demo.provider"
+            android:exported="true"
+            android:multiprocess="false"
+            android:grantUriPermissions="true"
+            android:readPermission="com.xcm.demo.permission.READ_CONTENT" />
+    </application>
+
+
+</manifest>

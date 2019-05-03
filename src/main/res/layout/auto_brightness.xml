@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/lux"
+        android:text="100.0"
+        android:inputType="numberDecimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <SeekBar
+        android:id="@+id/seek_bar"
+        android:min="0"
+        android:progress="100"
+        android:max="255"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <com.example.xcm.demo.brightness.DiagramView
+        android:id="@+id/curve_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

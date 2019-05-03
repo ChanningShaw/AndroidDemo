@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/task_params"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:textColor="@android:color/black" />
+
+        <EditText
+            android:id="@+id/delay_time"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="设置延迟时间"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/duration_time"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="设置持续时间"
+
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/deadline_time"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="设置截止时间"
+            android:inputType="numberDecimal" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/checkbox_unmetered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="wifi" />
+
+            <RadioButton
+                android:id="@+id/checkbox_any"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="任意网络" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkbox_charging"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="充电" />
+
+            <CheckBox
+                android:id="@+id/checkbox_idle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设备空闲" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_start_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始任务" />
+
+            <Button
+                android:id="@+id/button_cancel_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消任务" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/onstart_textview"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <View
+            android:id="@+id/onstop_textview"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

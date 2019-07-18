@@ -63,6 +63,8 @@
         <activity android:name=".crash.TestCrashActivity" />
         <activity android:name=".animation.TestViewAnimationActivity" />
         <activity android:name=".input.TestInputRestrictedActivity" />
+        <activity android:name=".video.TestVideoViewActivity" />
+        <activity android:name=".video.TestSurfaceViewActivity" />
 
         <service
             android:name="com.example.xcm.demo.aidl.AIDLService"

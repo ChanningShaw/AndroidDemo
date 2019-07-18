@@ -16,6 +16,8 @@ import com.example.xcm.demo.sensor.TestLightSensorActivity;
 import com.example.xcm.demo.sensor.TestOrientationActivity;
 import com.example.xcm.demo.task.TestJobSchedulerActivity;
 import com.example.xcm.demo.video.TestCameraActivity;
+import com.example.xcm.demo.video.TestSurfaceViewActivity;
+import com.example.xcm.demo.video.TestVideoViewActivity;
 import com.example.xcm.demo.view.TestAnimationDrawableActivity;
 import com.example.xcm.demo.view.TestPadListViewActivity;
 import com.example.xcm.demo.view.TestPipActivity;
@@ -85,9 +87,13 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         first.mChildren.add(second);
         mChildren.add(first);
 
-        first = new FirstLevelCategory("Camera");
+        first = new FirstLevelCategory("Video");
         second = new SecondLevelCategory("camera");
         second.mChildren.add(new Category(TestCameraActivity.class));
+        first.mChildren.add(second);
+        second = new SecondLevelCategory("video/surfaceView");
+        second.mChildren.add(new Category(TestVideoViewActivity.class));
+        second.mChildren.add(new Category(TestSurfaceViewActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
 

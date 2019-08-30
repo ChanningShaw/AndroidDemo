@@ -1,4 +1,4 @@
-package com.example.xcm.demo.video;
+package com.example.xcm.demo.grahpic;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -26,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.xcm.demo.R;
+import com.example.xcm.demo.base.Config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -161,7 +162,7 @@ public class TestCameraActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            Log.e("CameraNew", "Lacking privileges to access camera service, please request permission first.");
+            Log.e(Config.TAG, "Lacking privileges to access camera service, please request permission first.");
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
             }, REQUEST_CAMERA_PERMISSION);
@@ -210,7 +211,7 @@ public class TestCameraActivity extends AppCompatActivity {
             }
             mPreviewSize = getPreferredPreviewSize(map.getOutputSizes(SurfaceTexture.class), rotatedWidth, rotatedHeight);
             texture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
-            Log.e("CameraActivity", "OptimalSize width: " + mPreviewSize.getWidth() + " height: " + mPreviewSize.getHeight());
+            Log.e(Config.TAG, "OptimalSize width: " + mPreviewSize.getWidth() + " height: " + mPreviewSize.getHeight());
             Surface surface = new Surface(texture);
             mBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
             mBuilder.addTarget(surface);

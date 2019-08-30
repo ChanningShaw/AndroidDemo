@@ -1,6 +1,6 @@
 package com.example.xcm.demo.base;
 
-import com.example.xcm.demo.aidl.TestAIDLActivity;
+import com.example.xcm.demo.ipc.TestAIDLActivity;
 import com.example.xcm.demo.ams.ProviderDemoActivity;
 import com.example.xcm.demo.animation.TestViewAnimationActivity;
 import com.example.xcm.demo.brightness.AutoBrightnessDemoActivity;
@@ -15,7 +15,7 @@ import com.example.xcm.demo.sensor.TestGravityActivity;
 import com.example.xcm.demo.sensor.TestLightSensorActivity;
 import com.example.xcm.demo.sensor.TestOrientationActivity;
 import com.example.xcm.demo.task.TestJobSchedulerActivity;
-import com.example.xcm.demo.video.TestCameraActivity;
+import com.example.xcm.demo.grahpic.TestCameraActivity;
 import com.example.xcm.demo.view.TestAnimationDrawableActivity;
 import com.example.xcm.demo.view.TestPadListViewActivity;
 import com.example.xcm.demo.view.TestPipActivity;

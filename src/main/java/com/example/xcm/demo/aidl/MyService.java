@@ -1,4 +1,4 @@
-package com.example.xcm.demo.aidl;
+package com.example.xcm.demo.ipc;
 
 import android.app.Service;
 import android.content.Intent;

@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".notification.TestNotificationActivity" />
-        <activity android:name=".aidl.TestAIDLActivity" />
+        <activity android:name=".ipc.TestAIDLActivity" />
         <activity android:name=".handler.TestHandlerActivity" />
         <activity android:name=".sensor.TestOrientationActivity" />
         <activity android:name=".task.TestJobSchedulerActivity" />
@@ -51,7 +51,7 @@
         <activity android:name=".brightness.AutoBrightnessDemoActivity" />
         <activity android:name=".ams.ProviderDemoActivity" />
         <activity android:name=".view.TestPadListViewActivity" />
-        <activity android:name=".video.TestCameraActivity" />
+        <activity android:name=".grahpic.TestCameraActivity" />
         <activity android:name=".sensor.TestLightSensorActivity" />
         <activity android:name=".base.ContentActivity" />
         <activity android:name=".view.TestPipActivity" />
@@ -63,11 +63,14 @@
         <activity android:name=".crash.TestCrashActivity" />
         <activity android:name=".animation.TestViewAnimationActivity" />
         <activity android:name=".input.TestInputRestrictedActivity" />
-        <activity android:name=".video.TestVideoViewActivity" />
-        <activity android:name=".video.TestSurfaceViewActivity" />
+        <activity android:name=".grahpic.TestVideoViewActivity" />
+        <activity android:name=".grahpic.TestSurfaceViewActivity" />
+        <activity android:name=".ipc.TestMemoryFileActivity" />
+        <activity android:name=".grahpic.TestGLActivity" />
+        <activity android:name=".grahpic.AndroidGL2Activity" />
 
         <service
-            android:name="com.example.xcm.demo.aidl.AIDLService"
+            android:name="com.example.xcm.demo.ipc.AIDLService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.hooligan.aidl" />
@@ -86,8 +89,9 @@
             android:name=".task.MyJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service android:name=".view.TestWindowService" />
+        <service android:name=".ipc.MemoryFetchService" android:process=":ashmem"/>
 
-        <receiver android:name=".aidl.MyReceiver">
+        <receiver android:name=".ipc.MyReceiver">
             <intent-filter>
                 <action android:name="test" />
             </intent-filter>

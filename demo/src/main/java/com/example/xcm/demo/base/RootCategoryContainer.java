@@ -1,12 +1,15 @@
 package com.example.xcm.demo.base;
 
-import com.example.xcm.demo.aidl.TestAIDLActivity;
+import com.example.xcm.demo.grahpic.AndroidGL2Activity;
+import com.example.xcm.demo.grahpic.TestGLActivity;
+import com.example.xcm.demo.ipc.TestAIDLActivity;
 import com.example.xcm.demo.ams.ProviderDemoActivity;
 import com.example.xcm.demo.animation.TestViewAnimationActivity;
 import com.example.xcm.demo.brightness.AutoBrightnessDemoActivity;
 import com.example.xcm.demo.crash.TestCrashActivity;
 import com.example.xcm.demo.handler.TestHandlerActivity;
 import com.example.xcm.demo.input.TestInputRestrictedActivity;
+import com.example.xcm.demo.ipc.TestMemoryFileActivity;
 import com.example.xcm.demo.jni.TestJNIActivity;
 import com.example.xcm.demo.network.OkHttpTestActivity;
 import com.example.xcm.demo.notification.TestNotificationActivity;
@@ -15,15 +18,18 @@ import com.example.xcm.demo.sensor.TestGravityActivity;
 import com.example.xcm.demo.sensor.TestLightSensorActivity;
 import com.example.xcm.demo.sensor.TestOrientationActivity;
 import com.example.xcm.demo.task.TestJobSchedulerActivity;
-import com.example.xcm.demo.video.TestCameraActivity;
-import com.example.xcm.demo.video.TestSurfaceViewActivity;
-import com.example.xcm.demo.video.TestVideoViewActivity;
+import com.example.xcm.demo.grahpic.TestCameraActivity;
+import com.example.xcm.demo.grahpic.TestSurfaceViewActivity;
+import com.example.xcm.demo.grahpic.TestVideoViewActivity;
 import com.example.xcm.demo.view.TestAnimationDrawableActivity;
 import com.example.xcm.demo.view.TestPadListViewActivity;
 import com.example.xcm.demo.view.TestPipActivity;
 import com.example.xcm.demo.view.TestWindowActivity;
 import com.example.xcm.demo.wms.TestWmsActivity;
 
+/**
+ * 在这里配置层级列表的包含关系，需要构建一棵树
+ */
 public class RootCategoryContainer extends CategoryContainer<CategoryContainer> {
 
     public RootCategoryContainer(String name) {
@@ -38,6 +44,9 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         mChildren.add(first);
 
         first = new FirstLevelCategory("IPC");
+        second = new SecondLevelCategory("ashmem");
+        second.mChildren.add(new Category(TestMemoryFileActivity.class));
+        first.mChildren.add(second);
         second = new SecondLevelCategory("aidl");
         second.mChildren.add(new Category(TestAIDLActivity.class));
         first.mChildren.add(second);
@@ -87,13 +96,17 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         first.mChildren.add(second);
         mChildren.add(first);
 
-        first = new FirstLevelCategory("Video");
+        first = new FirstLevelCategory("Graphic");
         second = new SecondLevelCategory("camera");
         second.mChildren.add(new Category(TestCameraActivity.class));
         first.mChildren.add(second);
         second = new SecondLevelCategory("video/surfaceView");
         second.mChildren.add(new Category(TestVideoViewActivity.class));
         second.mChildren.add(new Category(TestSurfaceViewActivity.class));
+        first.mChildren.add(second);
+        second = new SecondLevelCategory("opengl");
+        second.mChildren.add(new Category(TestGLActivity.class));
+        second.mChildren.add(new Category(AndroidGL2Activity.class));
         first.mChildren.add(second);
         mChildren.add(first);
 

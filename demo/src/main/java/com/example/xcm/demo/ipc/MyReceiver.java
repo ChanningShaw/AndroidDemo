@@ -1,4 +1,4 @@
-package com.example.xcm.demo.aidl;
+package com.example.xcm.demo.ipc;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.example.xcm.demo.video;
+package com.example.xcm.demo.grahpic;
 
 import android.Manifest;
 import android.content.pm.PackageManager;

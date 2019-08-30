@@ -1,6 +1,5 @@
-package com.example.xcm.demo.video;
+package com.example.xcm.demo.grahpic;
 
-import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;

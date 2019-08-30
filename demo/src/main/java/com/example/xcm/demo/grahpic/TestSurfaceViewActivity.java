@@ -1,10 +1,8 @@
-package com.example.xcm.demo.video;
+package com.example.xcm.demo.grahpic;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
-import com.example.xcm.demo.R;
 
 public class TestSurfaceViewActivity extends AppCompatActivity {
     @Override

@@ -44,8 +44,12 @@ public class TriangleSmallGLUT extends SmallGLUT {
             0, 0, 1f, 1f
     };
 
+    /**
+     * OpenGL使用的是规格化设备坐标（NormalizedDevice Coordinate, NDC），规格化设备坐标的范围为[-1.0, 1.0]之间，
+     * 即OpenGL中x, y, z的坐标必须在[-1.0, 1.0]之间，超出范围的片元（目前可以把片元理解为像素）会被剪切掉，不会显示
+     */
     float[] vertices = {
-            -0.559016994f, 0, 0,
+            -0.5f, 0, 0,
             0.25f, 0.5f, 0f,
             0.25f, -0.5f, 0f
     };

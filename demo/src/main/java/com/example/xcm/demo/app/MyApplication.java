@@ -1,11 +1,14 @@
-package com.example.xcm.demo.base;
+package com.example.xcm.demo.app;
 
 import android.app.Activity;
 import android.app.Application;
 import android.nfc.Tag;
 import android.os.Bundle;
 
+import com.example.xcm.demo.MainActivity;
 import com.example.xcm.demo.crash.CrashHandler;
+import com.example.xcm.demo.utils.NotificationUtils;
+import com.example.xcm.demo.utils.Utils;
 
 public class MyApplication extends Application {
 
@@ -23,7 +26,6 @@ public class MyApplication extends Application {
     class ActivityLifecycleCallback implements Application.ActivityLifecycleCallbacks {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-
         }
 
         @Override
@@ -33,7 +35,11 @@ public class MyApplication extends Application {
 
         @Override
         public void onActivityResumed(Activity activity) {
-
+            if (activity instanceof MainActivity) {
+                if (Utils.checkRoot()) {
+                    NotificationUtils.showToast(MyApplication.this,"您的手机已经root");
+                }
+            }
         }
 
         @Override

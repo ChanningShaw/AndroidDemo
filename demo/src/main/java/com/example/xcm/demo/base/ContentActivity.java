@@ -14,9 +14,6 @@ import java.util.HashMap;
 
 public class ContentActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    String[] from = {"name"};
-    int[] to = {R.id.tv};
-
     private CategoryContainer mContainer;
 
     @Override
@@ -25,7 +22,6 @@ public class ContentActivity extends AppCompatActivity implements AdapterView.On
         Intent intent = getIntent();
         mContainer = intent.getExtras().getParcelable("container");
 
-        HashMap map = new HashMap<String, String>();
         setContentView(R.layout.content_layout);
         ListView lv = findViewById(R.id.menu);
         CategoryListViewAdapter adapter = new CategoryListViewAdapter(mContainer.getChildren(), ContentActivity.this);

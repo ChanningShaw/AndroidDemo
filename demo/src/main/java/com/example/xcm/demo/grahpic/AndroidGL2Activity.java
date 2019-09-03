@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -61,7 +62,14 @@ public class AndroidGL2Activity extends Activity {
                 -0.5f, -0.5f, 0.0f,
                 0.5f, -0.5f, 0.0f
         };
+        private int shaderProgram = 0;
         private FloatBuffer verticesBuffer;
+        private int mMVPMatrixHandle;
+
+        // Model View Projection Matrix的缩写
+        private final float[] mMVPMatrix = new float[16];
+        private final float[] mProjectionMatrix = new float[16];
+        private final float[] mViewMatrix = new float[16];
 
         public CustomRenderer() {
             verticesBuffer = SmallGLUT.getFloatBufferFromFloatArray(vertices);
@@ -72,10 +80,20 @@ public class AndroidGL2Activity extends Activity {
             if (!initialized) {
                 return;
             }
+            // 设置相机的位置 (View matrix)
+            // eyeX, eyeY,eyeZ 表示相机坐标的位置，centerX,centerY,centerZ表示 原点的位置，upX,upY,upZ表示相机顶部的朝向
+            Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -5, 0f, 0f, 0f, 0.0f, 1.0f, 0.0f);
+            // Calculate the projection and view transformation
+            Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
+            mMVPMatrixHandle = GLES20.glGetUniformLocation(shaderProgram, "uMVPMatrix");
+            GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
             GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
             GLES20.glUseProgram(shaderProgram);
             GLES20.glVertexAttribPointer(0, 3, GLES20.GL_FLOAT, false, 12,
                 verticesBuffer);
+            int colorHandle = GLES20.glGetUniformLocation(shaderProgram, "vColor");
+            float[] color = {0, 255, 0, 1.0f};
+            GLES20.glUniform4fv(colorHandle, 1, color, 0);
             GLES20.glEnableVertexAttribArray(0);
             GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
         }
@@ -84,7 +102,11 @@ public class AndroidGL2Activity extends Activity {
         public void onSurfaceChanged(GL10 unused, int width, int height) {
             Log.v(DEBUG_TAG, "onSurfaceChanged");
             GLES20.glViewport(0, 0, width, height);
+            float ratio = (float) width / height;
             GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1);
+            // 设置透视投影变换
+            Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
+
         }
 
         @Override
@@ -96,8 +118,6 @@ public class AndroidGL2Activity extends Activity {
                 Log.e(DEBUG_TAG, "Failed to init GL");
             }
         }
-
-        private int shaderProgram = 0;
 
         private void initShaderProgram(int vertexId, int fragmentId)
             throws Exception {
@@ -129,6 +149,15 @@ public class AndroidGL2Activity extends Activity {
             GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1);
         }
 
+        /**
+         *
+         *
+         * @param shaderType 创造顶点着色器类型(GLES20.GL_VERTEX_SHADER),
+         *                   片段着色器类型 (GLES20.GL_FRAGMENT_SHADER)
+         * @param shaderId
+         * @return
+         * @throws Exception
+         */
         private int loadAndCompileShader(int shaderType, int shaderId)
             throws Exception {
             InputStream inputStream =
@@ -156,11 +185,11 @@ public class AndroidGL2Activity extends Activity {
         }
 
         public String inputStreamToString(InputStream is) throws IOException {
-            StringBuffer sBuffer = new StringBuffer();
+            StringBuilder sBuffer = new StringBuilder();
             DataInputStream dataIO = new DataInputStream(is);
             String strLine = null;
             while ((strLine = dataIO.readLine()) != null) {
-                sBuffer.append(strLine + "\n");
+                sBuffer.append(strLine).append("\n");
             }
             dataIO.close();
             is.close();

@@ -23,7 +23,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class TestGLActivity extends AppCompatActivity {
 
     public static final String COLOR_OPTION_EXTRA = "COLORFUL";
-    private boolean doColorful = false;
+    private boolean doColorful = true;
     BasicGLThread mGLThread;
     SurfaceView mAndroidSurface;
 
@@ -31,7 +31,7 @@ public class TestGLActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent starter = getIntent();
-        doColorful = starter.getBooleanExtra(COLOR_OPTION_EXTRA, false);
+//        doColorful = starter.getBooleanExtra(COLOR_OPTION_EXTRA, false);
         mAndroidSurface = new BasicGLSurfaceView(this);
         setContentView(mAndroidSurface);
 

@@ -17,10 +17,12 @@ import android.widget.Toast;
 import com.example.xcm.demo.MainActivity;
 import com.example.xcm.demo.R;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -66,5 +68,35 @@ public class Utils {
             e.printStackTrace();
             Log.e(TAG, "" + e.toString());
         }
+    }
+
+    public static boolean checkRoot(){
+        return checkSuFile() || checkRootFile();
+    }
+
+    public static boolean checkSuFile() {
+        Process process = null;
+        try {
+            //   /system/xbin/which 或者  /system/bin/which
+            process = Runtime.getRuntime().exec(new String[]{"which", "su"});
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            if (in.readLine() != null) return true;
+            return false;
+        } catch (Throwable t) {
+            return false;
+        } finally {
+            if (process != null) process.destroy();
+        }
+    }
+
+    public static boolean checkRootFile() {
+        File file = null;
+        String[] paths = {"/sbin/su", "/system/bin/su", "/system/xbin/su", "/data/local/xbin/su", "/data/local/bin/su", "/system/sd/xbin/su",
+                "/system/bin/failsafe/su", "/data/local/su"};
+        for (String path : paths) {
+            file = new File(path);
+            if (file.exists()) return true;
+        }
+        return false;
     }
 }

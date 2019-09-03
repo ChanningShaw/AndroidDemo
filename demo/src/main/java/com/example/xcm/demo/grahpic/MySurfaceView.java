@@ -37,7 +37,7 @@ public class MySurfaceView extends SurfaceView implements Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        holder.setFixedSize(200, 400);
+        holder.setFixedSize(800, 800);
         mDraw();
     }
 

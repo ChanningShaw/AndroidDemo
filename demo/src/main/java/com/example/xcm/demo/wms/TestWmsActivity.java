@@ -22,8 +22,14 @@ public class TestWmsActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                view.setVisibility(View.GONE);
-                getWindowManager().removeView(view);
+                try {
+                    view.setVisibility(View.GONE);
+                    getWindowManager().removeView(view);
+                } catch (IllegalArgumentException e) {
+                    // the window maybe already deattach from wms
+                    e.printStackTrace();
+                }
+
             }
         }, 10000);
     }

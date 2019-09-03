@@ -28,11 +28,11 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler{
         //使用Toast进行提示
         NotificationUtils.showToast(mContext, "很抱歉，程序异常即将退出！");
         //延时退出
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        Process.killProcess(Process.myPid());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Process.killProcess(Process.myPid());
     }
 }

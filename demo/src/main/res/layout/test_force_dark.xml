@@ -4,10 +4,11 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="点击我进入PIP模式" />
+        android:textColor="@android:color/black"
+        android:text="点击我改变是否支持force dark" />
 
 </RelativeLayout>

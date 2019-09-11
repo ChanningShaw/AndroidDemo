@@ -24,13 +24,17 @@ public class MyApplication extends Application {
 
 
     class ActivityLifecycleCallback implements Application.ActivityLifecycleCallbacks {
+
+
+        private int activityStartCount = 0;
+
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         }
 
         @Override
         public void onActivityStarted(Activity activity) {
-
+            activityStartCount++;
         }
 
         @Override
@@ -49,7 +53,10 @@ public class MyApplication extends Application {
 
         @Override
         public void onActivityStopped(Activity activity) {
-
+            activityStartCount--;
+            if (activityStartCount == 0){
+                NotificationUtils.showToast(MyApplication.this, "应用进入后台");
+            }
         }
 
         @Override

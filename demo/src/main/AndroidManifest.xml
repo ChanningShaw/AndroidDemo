@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.DUMP" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -47,14 +46,15 @@
         <activity android:name=".task.TestJobSchedulerActivity" />
         <activity android:name=".notification.TestVibratorActivity" />
         <activity android:name=".cmd.TestCmdActivity" />
-        <activity android:name=".ams.AMSDemoActivity" />
+        <activity android:name=".ams.LaunchHomeActivity" />
         <activity android:name=".brightness.AutoBrightnessDemoActivity" />
         <activity android:name=".ams.ProviderDemoActivity" />
         <activity android:name=".view.TestPadListViewActivity" />
         <activity android:name=".grahpic.TestCameraActivity" />
         <activity android:name=".sensor.TestLightSensorActivity" />
         <activity android:name=".base.ContentActivity" />
-        <activity android:name=".view.TestPipActivity" />
+        <activity android:name=".view.TestPipActivity"
+            android:supportsPictureInPicture="true"/>
         <activity android:name=".sensor.TestGravityActivity" />
         <activity android:name=".view.TestWindowActivity" />
         <activity android:name=".network.OkHttpTestActivity" />
@@ -68,6 +68,9 @@
         <activity android:name=".ipc.TestMemoryFileActivity" />
         <activity android:name=".grahpic.TestGLActivity" />
         <activity android:name=".grahpic.AndroidGL2Activity" />
+        <activity android:name=".view.TestForceDarkActivity"
+            android:configChanges="uiMode"/>
+        <activity android:name=".ams.TestBackgroundActivity" />
 
         <service
             android:name="com.example.xcm.demo.ipc.AIDLService"

@@ -1,5 +1,6 @@
 package com.example.xcm.demo.base;
 
+import com.example.xcm.demo.ams.TestBackgroundActivity;
 import com.example.xcm.demo.grahpic.AndroidGL2Activity;
 import com.example.xcm.demo.grahpic.TestGLActivity;
 import com.example.xcm.demo.ipc.TestAIDLActivity;
@@ -22,6 +23,7 @@ import com.example.xcm.demo.grahpic.TestCameraActivity;
 import com.example.xcm.demo.grahpic.TestSurfaceViewActivity;
 import com.example.xcm.demo.grahpic.TestVideoViewActivity;
 import com.example.xcm.demo.view.TestAnimationDrawableActivity;
+import com.example.xcm.demo.view.TestForceDarkActivity;
 import com.example.xcm.demo.view.TestPadListViewActivity;
 import com.example.xcm.demo.view.TestPipActivity;
 import com.example.xcm.demo.view.TestWindowActivity;
@@ -84,6 +86,7 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         second = new SecondLevelCategory("ams");
         second.mChildren.add(new Category(TestAIDLActivity.class));
         second.mChildren.add(new Category(ProviderDemoActivity.class));
+        second.mChildren.add(new Category(TestBackgroundActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
 
@@ -93,6 +96,7 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         second.mChildren.add(new Category(TestPadListViewActivity.class));
         second.mChildren.add(new Category(TestPipActivity.class));
         second.mChildren.add(new Category(TestWindowActivity.class));
+        second.mChildren.add(new Category(TestForceDarkActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
 

@@ -4,11 +4,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.Image;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.example.xcm.demo.base.Config;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 public class BitmapUtils {
     public static Bitmap scaleBitmap(Bitmap bitmap, int screenWidth, int screenHeight) {
@@ -73,4 +77,81 @@ public class BitmapUtils {
         return image;
     }
 
+    public static Bitmap imageARGB8888ToBitmap(DisplayMetrics metrics, Image image) {
+        Image.Plane[] planes = image.getPlanes();
+        ByteBuffer buffer = planes[0].getBuffer();
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        int pixelStride = planes[0].getPixelStride();
+        int rowStride = planes[0].getRowStride();
+        int rowPadding = rowStride - pixelStride * width;
+
+        int offset = 0;
+        Bitmap bitmap;
+        bitmap = Bitmap.createBitmap(metrics, width, height, Bitmap.Config.ARGB_8888);
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                int pixel = 0;
+                pixel |= (buffer.get(offset) & 0xff) << 16;     // R
+                pixel |= (buffer.get(offset + 1) & 0xff) << 8;  // G
+                pixel |= (buffer.get(offset + 2) & 0xff);       // B
+                pixel |= (buffer.get(offset + 3) & 0xff) << 24; // A
+                bitmap.setPixel(j, i, pixel);
+                offset += pixelStride;
+            }
+            offset += rowPadding;
+        }
+        return bitmap;
+    }
+
+    /**
+     * 这个方法可以转换，但是得到的图片右边多了一列，比如上面方法得到1080x2160，这个方法得到1088x2160
+     * 所以要对得到的Bitmap裁剪一下
+     *
+     * @param image
+     * @param config
+     * @return
+     */
+    public static Bitmap imageToBitmap(Image image, Bitmap.Config config) {
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+        Bitmap bitmap;
+
+        final Image.Plane[] planes = image.getPlanes();
+        final ByteBuffer buffer = planes[0].getBuffer();
+        int pixelStride = planes[0].getPixelStride();
+        int rowStride = planes[0].getRowStride();
+        int rowPadding = rowStride - pixelStride * width;
+        Log.d(Config.TAG,
+                "pixelStride:" + pixelStride + ". rowStride:" + rowStride + ". rowPadding" + rowPadding);
+
+        bitmap = Bitmap.createBitmap(
+                width + rowPadding / pixelStride/*equals: rowStride/pixelStride */
+                , height, config);
+        bitmap.copyPixelsFromBuffer(buffer);
+
+        return Bitmap.createBitmap(bitmap, 0, 0, width, height);
+    }
+
+    /**
+     * PNG
+     *
+     * @return
+     */
+    public static byte[] bitmapToByte(Bitmap bmp, int quality) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, quality, baos);
+        return baos.toByteArray();
+    }
+
+    public static Bitmap byteToBitmap(byte[] data) {
+        if (data.length != 0) {
+            return BitmapFactory.decodeByteArray(data, 0, data.length);
+        } else {
+            return null;
+        }
+    }
 }

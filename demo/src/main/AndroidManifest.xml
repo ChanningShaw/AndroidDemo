@@ -71,6 +71,7 @@
         <activity android:name=".view.TestForceDarkActivity"
             android:configChanges="uiMode"/>
         <activity android:name=".ams.TestBackgroundActivity" />
+        <activity android:name=".grahpic.TestMediaProjectionActivity" />
 
         <service
             android:name="com.example.xcm.demo.ipc.AIDLService"

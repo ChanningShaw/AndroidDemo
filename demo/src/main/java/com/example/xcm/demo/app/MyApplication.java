@@ -2,6 +2,7 @@ package com.example.xcm.demo.app;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.nfc.Tag;
 import android.os.Bundle;
 
@@ -14,12 +15,19 @@ public class MyApplication extends Application {
 
     public static final String Tag = "MyApplication";
 
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.setCustomCrashHandler(getApplicationContext());
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallback());
+        //registerActivityLifecycleCallbacks(new ActivityLifecycleCallback());
     }
 
 

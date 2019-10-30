@@ -17,8 +17,8 @@ import android.widget.Toast;
 import com.example.xcm.demo.ams.MyReceiver;
 import com.example.xcm.demo.base.CategoryContainer;
 import com.example.xcm.demo.base.CategoryListViewAdapter;
-import com.example.xcm.demo.base.RootCategoryContainer;
 import com.example.xcm.demo.base.ContentActivity;
+import com.example.xcm.demo.base.RootCategoryContainer;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -32,6 +32,7 @@
             android:name="com.example.xcm.demo.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
+            android:configChanges="uiMode"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,10 +69,11 @@
         <activity android:name=".ipc.TestMemoryFileActivity" />
         <activity android:name=".grahpic.TestGLActivity" />
         <activity android:name=".grahpic.AndroidGL2Activity" />
-        <activity android:name=".view.TestForceDarkActivity"
-            android:configChanges="uiMode"/>
         <activity android:name=".ams.TestBackgroundActivity" />
         <activity android:name=".grahpic.TestMediaProjectionActivity" />
+        <activity android:name=".view.TestDarkThemeActivity" />
+        <activity android:name=".view.TestForceDarkActivity"
+            android:theme="@style/forceDarkTheme"/>
 
         <service
             android:name="com.example.xcm.demo.ipc.AIDLService"

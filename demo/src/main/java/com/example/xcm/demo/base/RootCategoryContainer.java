@@ -24,6 +24,7 @@ import com.example.xcm.demo.grahpic.TestCameraActivity;
 import com.example.xcm.demo.grahpic.TestSurfaceViewActivity;
 import com.example.xcm.demo.grahpic.TestVideoViewActivity;
 import com.example.xcm.demo.view.TestAnimationDrawableActivity;
+import com.example.xcm.demo.view.TestDarkThemeActivity;
 import com.example.xcm.demo.view.TestForceDarkActivity;
 import com.example.xcm.demo.view.TestPadListViewActivity;
 import com.example.xcm.demo.view.TestPipActivity;
@@ -98,6 +99,7 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         second.mChildren.add(new Category(TestPipActivity.class));
         second.mChildren.add(new Category(TestWindowActivity.class));
         second.mChildren.add(new Category(TestForceDarkActivity.class));
+        second.mChildren.add(new Category(TestDarkThemeActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
 

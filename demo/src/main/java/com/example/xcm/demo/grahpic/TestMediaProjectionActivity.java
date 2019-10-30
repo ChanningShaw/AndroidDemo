@@ -54,7 +54,7 @@ public class TestMediaProjectionActivity extends AppCompatActivity implements Sc
     }
 
     @Override
-    public void imageCaptured(byte[] image) {
+    public void onImageCaptured(byte[] image) {
         final Bitmap bitmap = BitmapUtils.byteToBitmap(image);
         runOnUiThread(new Runnable() {
             @Override

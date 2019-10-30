@@ -47,6 +47,7 @@ public class ScreenCapturer {
 
         isScreenCaptureStarted = false;
 
+        // 启动一个looper线程
         new Thread() {
             @Override
             public void run() {
@@ -109,6 +110,7 @@ public class ScreenCapturer {
 
         //start capture reader
         mImageReader = ImageReader.newInstance(mWidth, mHeight, PixelFormat.RGBA_8888, 2);
+        // 创建一个虚拟屏，用于截图
         mVirtualDisplay = sMediaProjection.createVirtualDisplay(
                 "ScreenShot",
                 mWidth,
@@ -135,7 +137,7 @@ public class ScreenCapturer {
 //                            bitmap = ImageUtils.image_ARGB8888_2_bitmap(metrics, image);
                             bitmap = BitmapUtils.imageToBitmap(image, Bitmap.Config.ARGB_8888);
                             if (null != mListener) {
-                                mListener.imageCaptured(BitmapUtils.bitmapToByte(bitmap, 80));
+                                mListener.onImageCaptured(BitmapUtils.bitmapToByte(bitmap, 80));
                             }
 
                             Date currentDate = new Date();
@@ -193,7 +195,7 @@ public class ScreenCapturer {
     }
 
     public interface OnImageCaptureScreenListener {
-        void imageCaptured(byte[] image);
+        void onImageCaptured(byte[] image);
     }
 
     private class MediaProjectionStopCallback extends MediaProjection.Callback {

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF172EB4</color>
-    <color name="colorPrimaryDark">#FF162372</color>
-    <color name="colorAccent">#FFB9295A</color>
-
-    <color name="ButtonText">#FF1B191A</color>
-
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="ButtonText">#FFECE5E9</color>
 
     <!--job scheduler-->
     <color name="start_received">#00CD66</color>

@@ -68,28 +68,7 @@ public class TestPadListViewActivity extends ListActivity implements AdapterView
         mAdapter.notifyDataSetChanged();
     }
 
-    private static class MyListAdapter extends ArrayAdapter<String> {
-        private List<String> mStrings;
-        private final LayoutInflater mInflater;
 
-        public MyListAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
-            super(context, resource, objects);
-            mStrings = objects;
-            mInflater = LayoutInflater.from(context);
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            TextView textView;
-            textView = (TextView) mInflater.inflate(R.layout.item_layout, null);
-            textView.setText(getItem(position));
-            // Work around fix way
-            //textView.setPressed(true);
-            // textView.setSelected(true);
-            return textView;
-        }
-    }
 
     private class MyOnFocusChangeListener implements View.OnFocusChangeListener {
         @Override

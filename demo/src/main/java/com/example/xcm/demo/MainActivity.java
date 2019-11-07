@@ -17,12 +17,13 @@ import android.widget.Toast;
 import com.example.xcm.demo.ams.MyReceiver;
 import com.example.xcm.demo.base.CategoryContainer;
 import com.example.xcm.demo.base.CategoryListViewAdapter;
+import com.example.xcm.demo.base.Config;
 import com.example.xcm.demo.base.ContentActivity;
 import com.example.xcm.demo.base.RootCategoryContainer;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "xcm";
+    private static final String TAG = Config.TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "滑盖打开", Toast.LENGTH_SHORT).show();
         } else if (keyCode == 701) {
             Toast.makeText(this, "滑盖关闭", Toast.LENGTH_SHORT).show();
+        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Log.d(TAG, "onKeyDown: start mms");
         }
         return true;
     }

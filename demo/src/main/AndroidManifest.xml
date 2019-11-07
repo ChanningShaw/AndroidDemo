@@ -31,7 +31,6 @@
         <activity
             android:name="com.example.xcm.demo.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleInstance"
             android:configChanges="uiMode"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -71,7 +70,8 @@
         <activity android:name=".grahpic.AndroidGL2Activity" />
         <activity android:name=".ams.TestBackgroundActivity" />
         <activity android:name=".grahpic.TestMediaProjectionActivity" />
-        <activity android:name=".view.TestDarkThemeActivity" />
+        <activity android:name=".view.TestDarkThemeActivity"
+            android:configChanges="uiMode"/>
         <activity android:name=".view.TestForceDarkActivity"
             android:theme="@style/forceDarkTheme"/>
 

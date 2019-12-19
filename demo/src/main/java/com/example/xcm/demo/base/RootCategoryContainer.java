@@ -4,6 +4,7 @@ import com.example.xcm.demo.ams.TestBackgroundActivity;
 import com.example.xcm.demo.grahpic.AndroidGL2Activity;
 import com.example.xcm.demo.grahpic.TestGLActivity;
 import com.example.xcm.demo.grahpic.TestMediaProjectionActivity;
+import com.example.xcm.demo.image.TestColorFilterActivity;
 import com.example.xcm.demo.ipc.TestAIDLActivity;
 import com.example.xcm.demo.ams.ProviderDemoActivity;
 import com.example.xcm.demo.animation.TestViewAnimationActivity;
@@ -26,6 +27,8 @@ import com.example.xcm.demo.grahpic.TestVideoViewActivity;
 import com.example.xcm.demo.view.TestAnimationDrawableActivity;
 import com.example.xcm.demo.view.TestDarkThemeActivity;
 import com.example.xcm.demo.view.TestForceDarkActivity;
+import com.example.xcm.demo.view.TestForceDarkActivity2;
+import com.example.xcm.demo.view.TestForceDarkActivity3;
 import com.example.xcm.demo.view.TestPadListViewActivity;
 import com.example.xcm.demo.view.TestPipActivity;
 import com.example.xcm.demo.view.TestWindowActivity;
@@ -99,6 +102,8 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         second.mChildren.add(new Category(TestPipActivity.class));
         second.mChildren.add(new Category(TestWindowActivity.class));
         second.mChildren.add(new Category(TestForceDarkActivity.class));
+        second.mChildren.add(new Category(TestForceDarkActivity2.class));
+        second.mChildren.add(new Category(TestForceDarkActivity3.class));
         second.mChildren.add(new Category(TestDarkThemeActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
@@ -115,6 +120,9 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         second = new SecondLevelCategory("opengl");
         second.mChildren.add(new Category(TestGLActivity.class));
         second.mChildren.add(new Category(AndroidGL2Activity.class));
+        first.mChildren.add(second);
+        second = new SecondLevelCategory("image");
+        second.mChildren.add(new Category(TestColorFilterActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
 

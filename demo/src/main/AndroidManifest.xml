@@ -74,6 +74,11 @@
             android:configChanges="uiMode"/>
         <activity android:name=".view.TestForceDarkActivity"
             android:theme="@style/forceDarkTheme"/>
+        <activity android:name=".view.TestForceDarkActivity2"
+            android:theme="@style/forceDarkTheme"/>
+        <activity android:name=".view.TestForceDarkActivity3"
+            android:theme="@style/forceDarkTheme"/>
+        <activity android:name=".image.TestColorFilterActivity" />
 
         <service
             android:name="com.example.xcm.demo.ipc.AIDLService"

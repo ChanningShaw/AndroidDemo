@@ -1,218 +1,161 @@
 package com.example.xcm.demo.grahpic;
 
 import android.content.Context;
-import android.content.Intent;
-import android.opengl.GLDebugHelper;
-import android.opengl.GLU;
+import android.opengl.GLES20;
+import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.MotionEvent;
 
-import com.example.xcm.demo.base.Config;
-
-import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLContext;
-import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLSurface;
 import javax.microedition.khronos.opengles.GL10;
 
 public class TestGLActivity extends AppCompatActivity {
 
-    public static final String COLOR_OPTION_EXTRA = "COLORFUL";
-    private boolean doColorful = true;
-    BasicGLThread mGLThread;
-    SurfaceView mAndroidSurface;
+    private GLSurfaceView mGLView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent starter = getIntent();
-//        doColorful = starter.getBooleanExtra(COLOR_OPTION_EXTRA, false);
-        mAndroidSurface = new BasicGLSurfaceView(this);
-        setContentView(mAndroidSurface);
+        mGLView = new MyGLSurfaceView(this);
+        setContentView(mGLView);
+    }
+}
 
+class MyGLRenderer implements GLSurfaceView.Renderer {
+
+    private Triangle mTriangle;
+    private Square mSquare;
+
+    // mMVPMatrix is an abbreviation for "Model View Projection Matrix"
+    private final float[] mMVPMatrix = new float[16];
+    private final float[] mProjectionMatrix = new float[16];
+    private final float[] mViewMatrix = new float[16];
+
+    private float[] mRotationMatrix = new float[16];
+
+    @Override
+    public void onSurfaceCreated(GL10 unused, EGLConfig config) {
+        // Set the background frame color
+        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        // initialize a triangle
+        mTriangle = new Triangle();
+        // initialize a square
+        mSquare = new Square();
     }
 
-    private class BasicGLSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
-        SurfaceHolder mAndroidHolder;
+    public void onDrawFrame(GL10 unused) {
+        float[] scratch = new float[16];
+        // Redraw background color
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+        // Set the camera position (View matrix)
+        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        // Calculate the projection and view transformation
+        Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
-        BasicGLSurfaceView(Context context) {
-            super(context);
-            mAndroidHolder = getHolder();
-            mAndroidHolder.addCallback(this);
-            mAndroidHolder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
-        }
 
-        @Override
-        public void surfaceCreated(SurfaceHolder surfaceHolder) {
-            mGLThread = new BasicGLThread(this);
-            mGLThread.start();
-        }
+        // Create a rotation transformation for the triangle
+        //long time = SystemClock.uptimeMillis() % 4000L;
+        //float angle = 0.090f * ((int) time);
+        Matrix.setRotateM(mRotationMatrix, 0, mAngle, 0, 0, -1.0f);
+        // Combine the rotation matrix with the projection and camera view
+        // Note that the mMVPMatrix factor *must be first* in order
+        // for the matrix multiplication product to be correct.
+        Matrix.multiplyMM(scratch, 0, mMVPMatrix, 0, mRotationMatrix, 0);
 
-        @Override
-        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-            if (mGLThread != null) {
-                mGLThread.requestStop();
-            }
-        }
+        mTriangle.draw(scratch);
+        mSquare.draw(scratch);
     }
 
+    public void onSurfaceChanged(GL10 unused, int width, int height) {
+        GLES20.glViewport(0, 0, width, height);
+        float ratio = (float) width / height;
+        // this projection matrix is applied to object coordinates
+        // in the onDrawFrame() method
+        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
+    }
 
-    private class BasicGLThread extends Thread {
-        SurfaceView surfaceView;
-        private boolean mDone = false;
+    public static int loadShader(int type, String shaderCode) {
 
-        // main OpenGL variables
-        GL10 mGL;
-        EGL10 mEGL;
-        EGLDisplay mGLDisplay;
-        EGLConfig mGLConfig;
-        EGLSurface mGLSurface;
-        EGLContext mGLContext;
-        int[] mConfigSpec = {EGL10.EGL_RED_SIZE, 5,
-                EGL10.EGL_GREEN_SIZE, 6, EGL10.EGL_BLUE_SIZE, 5,
-                EGL10.EGL_DEPTH_SIZE, 16, EGL10.EGL_NONE};
+        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
+        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
+        int shader = GLES20.glCreateShader(type);
 
+        // add the source code to the shader and compile it
+        GLES20.glShaderSource(shader, shaderCode);
+        GLES20.glCompileShader(shader);
 
-        BasicGLThread(SurfaceView view) {
-            surfaceView = view;
-        }
+        return shader;
+    }
 
+    public volatile float mAngle;
 
-        public void run() {
-            try {
-                initEGL();
-                initGL();
+    public float getAngle() {
+        return mAngle;
+    }
 
-                TriangleSmallGLUT triangle = new TriangleSmallGLUT(3);
-                mGL.glMatrixMode(GL10.GL_MODELVIEW);
-                mGL.glLoadIdentity();
-                GLU.gluLookAt(mGL, 0, 0, 10f, 0, 0, 0, 0, 1, 0f);
-                mGL.glColor4f(1f, 0f, 0f, 1f);
-                while (!mDone) {
-                    mGL.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-                    mGL.glRotatef(1f, 0, 0, 1f);
+    public void setAngle(float angle) {
+        mAngle = angle;
+    }
 
-                    if (doColorful) {
-                        triangle.drawColorful(mGL);
-                    } else {
-                        triangle.draw(mGL);
-                    }
+}
 
-                    mEGL.eglSwapBuffers(mGLDisplay, mGLSurface);
+class MyGLSurfaceView extends GLSurfaceView {
+
+    private final MyGLRenderer mRenderer;
+
+    private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
+    private float mPreviousX;
+    private float mPreviousY;
+
+    public MyGLSurfaceView(Context context) {
+        super(context);
+
+        // Create an OpenGL ES 2.0 context
+        setEGLContextClientVersion(2);
+
+        mRenderer = new MyGLRenderer();
+
+        // Set the Renderer for drawing on the GLSurfaceView
+        setRenderer(mRenderer);
+
+        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // MotionEvent reports input details from the touch screen
+        // and other input controls. In this case, you are only
+        // interested in events where the touch position changed.
+        float x = event.getX();
+        float y = event.getY();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+
+                float dx = x - mPreviousX;
+                float dy = y - mPreviousY;
+
+                // reverse direction of rotation above the mid-line
+                if (y > getHeight() / 2) {
+                    dx = dx * -1 ;
                 }
 
-            } catch (Exception e) {
-                Log.e(Config.TAG, "GL Failure", e);
-            } finally {
-                cleanupGL();
-            }
+                // reverse direction of rotation to left of the mid-line
+                if (x < getWidth() / 2) {
+                    dy = dy * -1 ;
+                }
+
+                mRenderer.setAngle(
+                        mRenderer.getAngle() +
+                                ((dx + dy) * TOUCH_SCALE_FACTOR));
+                requestRender();
         }
 
-        public void requestStop() {
-            mDone = true;
-            try {
-                join();
-            } catch (InterruptedException e) {
-                Log.e(Config.TAG, "failed to stop gl thread", e);
-            }
-
-            cleanupGL();
-        }
-
-        private void cleanupGL() {
-            mEGL.eglMakeCurrent(mGLDisplay, EGL10.EGL_NO_SURFACE,
-                    EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT);
-            mEGL.eglDestroySurface(mGLDisplay, mGLSurface);
-            mEGL.eglDestroyContext(mGLDisplay, mGLContext);
-            mEGL.eglTerminate(mGLDisplay);
-            Log.i(Config.TAG, "GL Cleaned up");
-        }
-
-        public void initGL() {
-            int width = surfaceView.getWidth();
-            int height = surfaceView.getHeight();
-            mGL.glViewport(0, 0, width, height);
-            mGL.glMatrixMode(GL10.GL_PROJECTION);
-            mGL.glLoadIdentity();
-            float aspect = (float) width / height;
-            GLU.gluPerspective(mGL, 45.0f, aspect, 1.0f, 30.0f);
-            mGL.glClearColor(0.5f, 0.5f, 0.5f, 1);
-
-            // the only way to draw primitives with OpenGL ES
-            mGL.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-            Log.i(Config.TAG, "GL initialized");
-        }
-
-        public void initEGL() throws Exception {
-            mEGL = (EGL10) GLDebugHelper.wrap(EGLContext.getEGL(),
-                    GLDebugHelper.CONFIG_CHECK_GL_ERROR
-                            | GLDebugHelper.CONFIG_CHECK_THREAD, null);
-
-            if (mEGL == null) {
-                throw new Exception("Couldn't get EGL");
-            }
-
-            mGLDisplay = mEGL.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-
-            if (mGLDisplay == null) {
-                throw new Exception("Couldn't get display for GL");
-            }
-            int[] curGLVersion = new int[2];
-            mEGL.eglInitialize(mGLDisplay, curGLVersion);
-            Log.i(Config.TAG, "GL version = " + curGLVersion[0] + "."
-                    + curGLVersion[1]);
-            EGLConfig[] configs = new EGLConfig[1];
-            int[] num_config = new int[1];
-            mEGL.eglChooseConfig(mGLDisplay, mConfigSpec, configs, 1,
-                    num_config);
-            mGLConfig = configs[0];
-            mGLSurface = mEGL.eglCreateWindowSurface(mGLDisplay, mGLConfig, surfaceView
-                    .getHolder(), null);
-
-            if (mGLSurface == null) {
-                throw new Exception("Couldn't create new surface");
-            }
-            mGLContext = mEGL.eglCreateContext(mGLDisplay, mGLConfig,
-                    EGL10.EGL_NO_CONTEXT, null);
-
-            if (mGLContext == null) {
-                throw new Exception("Couldn't create new context");
-            }
-
-            if (!mEGL.eglMakeCurrent(mGLDisplay, mGLSurface, mGLSurface, mGLContext)) {
-                throw new Exception("Failed to eglMakeCurrent");
-            }
-
-            mGL = (GL10) GLDebugHelper.wrap(mGLContext.getGL(),
-                    GLDebugHelper.CONFIG_CHECK_GL_ERROR
-                            | GLDebugHelper.CONFIG_CHECK_THREAD
-                            | GLDebugHelper.CONFIG_LOG_ARGUMENT_NAMES, null);
-
-            if (mGL == null) {
-                throw new Exception("Failed to get GL");
-            }
-
-        }
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
+        mPreviousX = x;
+        mPreviousY = y;
+        return true;
     }
 }

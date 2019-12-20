@@ -17,7 +17,6 @@ public class TriangleSmallGLUT extends SmallGLUT {
                 vertices[vertex] *= size;
             }
         }
-
         mVertexBuffer = getFloatBufferFromFloatArray(vertices);
         mColorBuffer = getFloatBufferFromFloatArray(colors);
     }

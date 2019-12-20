@@ -14,6 +14,12 @@
 
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.camera" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
+    <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
 
     <permission
         android:name="com.xcm.demo.permission.READ_CONTENT"
@@ -30,8 +36,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.example.xcm.demo.MainActivity"
-            android:label="@string/app_name"
             android:configChanges="uiMode"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,8 +59,9 @@
         <activity android:name=".grahpic.TestCameraActivity" />
         <activity android:name=".sensor.TestLightSensorActivity" />
         <activity android:name=".base.ContentActivity" />
-        <activity android:name=".view.TestPipActivity"
-            android:supportsPictureInPicture="true"/>
+        <activity
+            android:name=".view.TestPipActivity"
+            android:supportsPictureInPicture="true" />
         <activity android:name=".sensor.TestGravityActivity" />
         <activity android:name=".view.TestWindowActivity" />
         <activity android:name=".network.OkHttpTestActivity" />
@@ -70,14 +77,18 @@
         <activity android:name=".grahpic.AndroidGL2Activity" />
         <activity android:name=".ams.TestBackgroundActivity" />
         <activity android:name=".grahpic.TestMediaProjectionActivity" />
-        <activity android:name=".view.TestDarkThemeActivity"
-            android:configChanges="uiMode"/>
-        <activity android:name=".view.TestForceDarkActivity"
-            android:theme="@style/forceDarkTheme"/>
-        <activity android:name=".view.TestForceDarkActivity2"
-            android:theme="@style/forceDarkTheme"/>
-        <activity android:name=".view.TestForceDarkActivity3"
-            android:theme="@style/forceDarkTheme"/>
+        <activity
+            android:name=".view.TestDarkThemeActivity"
+            android:configChanges="uiMode" />
+        <activity
+            android:name=".view.TestForceDarkActivity"
+            android:theme="@style/forceDarkTheme" />
+        <activity
+            android:name=".view.TestForceDarkActivity2"
+            android:theme="@style/forceDarkTheme" />
+        <activity
+            android:name=".view.TestForceDarkActivity3"
+            android:theme="@style/forceDarkTheme" />
         <activity android:name=".image.TestColorFilterActivity" />
 
         <service
@@ -100,7 +111,9 @@
             android:name=".task.MyJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service android:name=".view.TestWindowService" />
-        <service android:name=".ipc.MemoryFetchService" android:process=":ashmem"/>
+        <service
+            android:name=".ipc.MemoryFetchService"
+            android:process=":ashmem" />
 
         <receiver android:name=".ipc.MyReceiver">
             <intent-filter>
@@ -112,8 +125,8 @@
             android:name=".ams.DemoProvider"
             android:authorities="com.xcm.demo.provider"
             android:exported="true"
-            android:multiprocess="false"
             android:grantUriPermissions="true"
+            android:multiprocess="false"
             android:readPermission="com.xcm.demo.permission.READ_CONTENT" />
     </application>
 

@@ -121,10 +121,8 @@ public class AndroidGL2Activity extends Activity {
 
         private void initShaderProgram(int vertexId, int fragmentId)
             throws Exception {
-            int vertexShader =
-                loadAndCompileShader(GLES20.GL_VERTEX_SHADER, vertexId);
-            int fragmentShader =
-                loadAndCompileShader(GLES20.GL_FRAGMENT_SHADER, fragmentId);
+            int vertexShader = loadAndCompileShader(GLES20.GL_VERTEX_SHADER, vertexId);
+            int fragmentShader = loadAndCompileShader(GLES20.GL_FRAGMENT_SHADER, fragmentId);
             shaderProgram = GLES20.glCreateProgram();
             if (shaderProgram == 0) {
                 throw new Exception("Failed to create shader program");

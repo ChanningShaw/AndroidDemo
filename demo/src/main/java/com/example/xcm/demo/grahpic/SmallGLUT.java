@@ -45,6 +45,4 @@ public abstract class SmallGLUT {
     	buffer.position(0);
     	return buffer;
     }
-    
-    
 }

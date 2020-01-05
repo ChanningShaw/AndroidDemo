@@ -17,6 +17,11 @@ public class Category extends CategoryContainer<Category> {
     }
 
     @Override
+    public int getChildCountRecur() {
+        return 1;
+    }
+
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeSerializable(clazz);
         super.writeToParcel(dest, flags);

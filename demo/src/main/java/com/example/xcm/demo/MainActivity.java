@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.xcm.demo.ams.MyReceiver;
@@ -25,12 +26,12 @@ import com.example.xcm.demo.base.RootCategoryContainer;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = Config.TAG;
+    TextView mTvDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        WindowManager.LayoutParams a = getWindow().getAttributes();
         setupView();
         BroadcastReceiver receiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
@@ -69,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                 startDomain(mRoot.getChildren().get(position));
             }
         });
+
+        mTvDesc = findViewById(R.id.tv_desc);
+        mTvDesc.setText("Total Demo:" + mRoot.getChildCountRecur());
 
     }
 

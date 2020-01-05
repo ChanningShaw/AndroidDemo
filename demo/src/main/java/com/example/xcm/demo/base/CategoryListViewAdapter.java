@@ -42,16 +42,19 @@ public class CategoryListViewAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.listview_item, null, false);
             holder = new ViewHolder();
-            holder.textView = convertView.findViewById(R.id.tv);
+            holder.childCout = convertView.findViewById(R.id.tv_child_count);
+            holder.name = convertView.findViewById(R.id.name);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.textView.setText(mCategoryItems.get(position).mName);
+        holder.childCout.setText("demo:" + mCategoryItems.get(position).getChildCountRecur());
+        holder.name.setText(mCategoryItems.get(position).mName);
         return convertView;
     }
 }
 
 class ViewHolder {
-    TextView textView;
+    TextView childCout;
+    TextView name;
 }

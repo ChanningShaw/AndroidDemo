@@ -1,5 +1,7 @@
 package com.example.xcm.demo.base;
 
+import android.util.Log;
+
 import com.example.xcm.demo.ams.TestBackgroundActivity;
 import com.example.xcm.demo.ams.TestLockTaskActivity;
 import com.example.xcm.demo.grahpic.opengl.AndroidGL2Activity;
@@ -38,7 +40,7 @@ import com.example.xcm.demo.wms.TestWmsActivity;
 /**
  * 在这里配置层级列表的包含关系，需要构建一棵树
  */
-public class RootCategoryContainer extends CategoryContainer<CategoryContainer> {
+public class RootCategoryContainer extends CategoryContainer<FirstLevelCategory> {
 
     public RootCategoryContainer(String name) {
         super(name);
@@ -170,5 +172,7 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         second.mChildren.add(new Category(TestInputRestrictedActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
+
+        sort();
     }
 }

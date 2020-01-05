@@ -1,6 +1,5 @@
 package com.example.xcm.demo.wms;
 
-import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.xcm.demo.R;
-import com.example.xcm.demo.ams.TestLockTaskActivity;
 import com.example.xcm.demo.base.Config;
 
 public class TestWmsActivity extends AppCompatActivity {
@@ -60,7 +58,6 @@ public class TestWmsActivity extends AppCompatActivity {
     public void dismiss(){
         getWindowManager().removeView(view);
     }
-
 
     class MyButton extends AppCompatButton {
 

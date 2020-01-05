@@ -4,9 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public abstract class CategoryContainer<E extends CategoryContainer> implements Parcelable {
-    ArrayList<E> mChildren = new ArrayList<E>();
+    ArrayList<E> mChildren = new ArrayList<>();
     String mName;
 
     public CategoryContainer(String name) {
@@ -48,5 +50,26 @@ public abstract class CategoryContainer<E extends CategoryContainer> implements 
 
     public ArrayList<E> getChildren() {
         return mChildren;
+    }
+
+    public void sort(){
+        Collections.sort(mChildren, new Comparator<E>() {
+            @Override
+            public int compare(E o1, E o2) {
+                return o1.mName.compareTo(o2.mName);
+            }
+        });
+    }
+
+    protected  int getChildCount(){
+        return mChildren.size();
+    }
+
+    public int getChildCountRecur(){
+        int count = 0;
+        for (CategoryContainer c : mChildren) {
+            count += c.getChildCountRecur();
+        }
+        return count;
     }
 }

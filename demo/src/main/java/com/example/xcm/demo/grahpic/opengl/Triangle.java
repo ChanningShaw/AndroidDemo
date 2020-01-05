@@ -1,12 +1,13 @@
-package com.example.xcm.demo.grahpic;
+package com.example.xcm.demo.grahpic.opengl;
 
+import android.content.Context;
 import android.opengl.GLES20;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-public class Triangle {
+public class Triangle extends Shape {
     private FloatBuffer vertexBuffer;
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
@@ -23,12 +24,14 @@ public class Triangle {
     private final String vertexShaderCode =
             // This matrix member variable provides a hook to manipulate
             // the coordinates of the objects that use this vertex shader
+            // 透视投影
             "uniform mat4 uMVPMatrix;" +
             "attribute vec4 vPosition;" +
                     "void main() {" +
                     // the matrix must be included as a modifier of gl_Position
                     // Note that the uMVPMatrix factor *must be first* in order
                     // for the matrix multiplication product to be correct.
+                    // 左乘
                     "  gl_Position = uMVPMatrix * vPosition;" +
                     "}";
     private final String fragmentShaderCode =
@@ -38,7 +41,7 @@ public class Triangle {
                     "  gl_FragColor = vColor;" +
                     "}";
 
-    private final int mProgram;
+    private int mProgram;
 
     private int mPositionHandle;
     private int mColorHandle;
@@ -49,7 +52,8 @@ public class Triangle {
     // Use to access and set the view transformation
     private int mMVPMatrixHandle;
 
-    public Triangle() {
+    public Triangle(Context context) {
+        super(context);
         // initialize vertex byte buffer for shape coordinates
         ByteBuffer bb = ByteBuffer.allocateDirect(
                 // (number of coordinate values * 4 bytes per float)
@@ -64,6 +68,7 @@ public class Triangle {
         // set the buffer to read the first coordinate
         vertexBuffer.position(0);
 
+        // 加载 shader 代码
         int vertexShader = MyGLRenderer.loadShader(GLES20.GL_VERTEX_SHADER,
                 vertexShaderCode);
         int fragmentShader = MyGLRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER,
@@ -80,14 +85,21 @@ public class Triangle {
 
         // creates OpenGL ES program executables
         GLES20.glLinkProgram(mProgram);
-    }
 
-    public void draw(float[] mvpMatrix) {
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(mProgram);
 
         // get handle to vertex shader's vPosition member
         mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
+
+        // get handle to fragment shader's vColor member
+        mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
+
+        // get handle to shape's transformation matrix
+        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
+    }
+
+    public void draw(float[] mvpMatrix) {
 
         // Enable a handle to the triangle vertices
         GLES20.glEnableVertexAttribArray(mPositionHandle);
@@ -97,14 +109,8 @@ public class Triangle {
                 GLES20.GL_FLOAT, false,
                 vertexStride, vertexBuffer);
 
-        // get handle to fragment shader's vColor member
-        mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
-
         // Set color for drawing the triangle
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);
-
-        // get handle to shape's transformation matrix
-        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
         // Pass the projection and view transformation to the shader
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
@@ -116,4 +122,8 @@ public class Triangle {
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
 
+    @Override
+    public void destroy() {
+
+    }
 }

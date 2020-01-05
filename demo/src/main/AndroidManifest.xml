@@ -60,7 +60,7 @@
         <activity android:name=".sensor.TestLightSensorActivity" />
         <activity android:name=".base.ContentActivity" />
         <activity
-            android:name=".view.TestPipActivity"
+            android:name=".wms.TestPipActivity"
             android:supportsPictureInPicture="true" />
         <activity android:name=".sensor.TestGravityActivity" />
         <activity android:name=".view.TestWindowActivity" />
@@ -73,8 +73,8 @@
         <activity android:name=".grahpic.TestVideoViewActivity" />
         <activity android:name=".grahpic.TestSurfaceViewActivity" />
         <activity android:name=".ipc.TestMemoryFileActivity" />
-        <activity android:name=".grahpic.TestGLActivity" />
-        <activity android:name=".grahpic.AndroidGL2Activity" />
+        <activity android:name=".grahpic.opengl.TestGLActivity" />
+        <activity android:name=".grahpic.opengl.AndroidGL2Activity" />
         <activity android:name=".ams.TestBackgroundActivity" />
         <activity android:name=".grahpic.TestMediaProjectionActivity" />
         <activity
@@ -90,6 +90,7 @@
             android:name=".view.TestForceDarkActivity3"
             android:theme="@style/forceDarkTheme" />
         <activity android:name=".image.TestColorFilterActivity" />
+        <activity android:name=".ams.TestLockTaskActivity" />
 
         <service
             android:name="com.example.xcm.demo.ipc.AIDLService"

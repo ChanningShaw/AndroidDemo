@@ -1,4 +1,4 @@
-package com.example.xcm.demo.grahpic;
+package com.example.xcm.demo.grahpic.opengl;
 
 import java.io.DataInputStream;
 import java.io.IOException;

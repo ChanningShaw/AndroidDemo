@@ -1,8 +1,9 @@
 package com.example.xcm.demo.base;
 
 import com.example.xcm.demo.ams.TestBackgroundActivity;
-import com.example.xcm.demo.grahpic.AndroidGL2Activity;
-import com.example.xcm.demo.grahpic.TestGLActivity;
+import com.example.xcm.demo.ams.TestLockTaskActivity;
+import com.example.xcm.demo.grahpic.opengl.AndroidGL2Activity;
+import com.example.xcm.demo.grahpic.opengl.TestGLActivity;
 import com.example.xcm.demo.grahpic.TestMediaProjectionActivity;
 import com.example.xcm.demo.image.TestColorFilterActivity;
 import com.example.xcm.demo.ipc.TestAIDLActivity;
@@ -30,7 +31,7 @@ import com.example.xcm.demo.view.TestForceDarkActivity;
 import com.example.xcm.demo.view.TestForceDarkActivity2;
 import com.example.xcm.demo.view.TestForceDarkActivity3;
 import com.example.xcm.demo.view.TestPadListViewActivity;
-import com.example.xcm.demo.view.TestPipActivity;
+import com.example.xcm.demo.wms.TestPipActivity;
 import com.example.xcm.demo.view.TestWindowActivity;
 import com.example.xcm.demo.wms.TestWmsActivity;
 
@@ -92,6 +93,7 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         second.mChildren.add(new Category(TestAIDLActivity.class));
         second.mChildren.add(new Category(ProviderDemoActivity.class));
         second.mChildren.add(new Category(TestBackgroundActivity.class));
+        second.mChildren.add(new Category(TestLockTaskActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
 
@@ -99,7 +101,6 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         second = new SecondLevelCategory("view");
         second.mChildren.add(new Category(TestAnimationDrawableActivity.class));
         second.mChildren.add(new Category(TestPadListViewActivity.class));
-        second.mChildren.add(new Category(TestPipActivity.class));
         second.mChildren.add(new Category(TestWindowActivity.class));
         second.mChildren.add(new Category(TestForceDarkActivity.class));
         second.mChildren.add(new Category(TestForceDarkActivity2.class));
@@ -138,9 +139,10 @@ public class RootCategoryContainer extends CategoryContainer<CategoryContainer> 
         first.mChildren.add(second);
         mChildren.add(first);
 
-        first = new FirstLevelCategory("Wms");
-        second = new SecondLevelCategory("wms");
+        first = new FirstLevelCategory("Window");
+        second = new SecondLevelCategory("window");
         second.mChildren.add(new Category(TestWmsActivity.class));
+        second.mChildren.add(new Category(TestPipActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
 

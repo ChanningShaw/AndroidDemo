@@ -1,4 +1,4 @@
-package com.example.xcm.demo.view;
+package com.example.xcm.demo.wms;
 
 import android.app.PictureInPictureParams;
 import android.os.Bundle;

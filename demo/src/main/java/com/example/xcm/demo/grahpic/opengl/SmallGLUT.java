@@ -1,4 +1,4 @@
-package com.example.xcm.demo.grahpic;
+package com.example.xcm.demo.grahpic.opengl;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -23,7 +23,7 @@ public abstract class SmallGLUT {
      * @param array
      * @return
      */
-    static FloatBuffer getFloatBufferFromFloatArray(float array[]) {
+    static FloatBuffer getFloatBufferFromFloatArray(float[] array) {
         // 初始化ByteBuffer，长度为arr数组的长度*4，因为一个float占4个字节
         ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
         // 数组排列用nativeOrder
@@ -36,13 +36,13 @@ public abstract class SmallGLUT {
         buffer.position(0);
         return buffer;
     }
-    
-    static IntBuffer getIntBufferFromIntArray( int array[]) {
-    	ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
-    	tempBuffer.order(ByteOrder.nativeOrder());
-    	IntBuffer buffer = tempBuffer.asIntBuffer();
-    	buffer.put(array);
-    	buffer.position(0);
-    	return buffer;
+
+    static IntBuffer getIntBufferFromIntArray(int[] array) {
+        ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
+        tempBuffer.order(ByteOrder.nativeOrder());
+        IntBuffer buffer = tempBuffer.asIntBuffer();
+        buffer.put(array);
+        buffer.position(0);
+        return buffer;
     }
 }

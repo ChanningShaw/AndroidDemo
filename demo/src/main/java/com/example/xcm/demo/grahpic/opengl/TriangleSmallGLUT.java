@@ -1,4 +1,6 @@
-package com.example.xcm.demo.grahpic;
+package com.example.xcm.demo.grahpic.opengl;
+
+import com.example.xcm.demo.grahpic.opengl.SmallGLUT;
 
 import java.nio.FloatBuffer;
 

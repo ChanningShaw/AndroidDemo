@@ -2,6 +2,8 @@ package com.example.xcm.demo.wms;
 
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -26,7 +28,14 @@ public class TestWmsActivity extends AppCompatActivity {
         setContentView(R.layout.test_window);
         view = new MyButton(this);
 
-        getWindowManager().addView(view, getWindowParams());
+        HandlerThread thread = new HandlerThread("child-thread");
+        thread.start();
+        new Handler(thread.getLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                getWindowManager().addView(view, getWindowParams());
+            }
+        });
 
         findViewById(R.id.bt).setOnClickListener(new View.OnClickListener() {
             @Override

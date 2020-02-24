@@ -19,6 +19,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.SplashTheme" parent="Theme.AppCompat.Light">
+        <item name="android:windowBackground">@drawable/car</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

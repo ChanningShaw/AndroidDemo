@@ -1,20 +1,22 @@
 package com.example.xcm.demo.base;
 
-import android.util.Log;
-
+import com.example.xcm.demo.ams.ProviderDemoActivity;
 import com.example.xcm.demo.ams.TestBackgroundActivity;
 import com.example.xcm.demo.ams.TestLockTaskActivity;
-import com.example.xcm.demo.grahpic.opengl.AndroidGL2Activity;
-import com.example.xcm.demo.grahpic.opengl.TestGLActivity;
-import com.example.xcm.demo.grahpic.TestMediaProjectionActivity;
-import com.example.xcm.demo.image.TestColorFilterActivity;
-import com.example.xcm.demo.ipc.TestAIDLActivity;
-import com.example.xcm.demo.ams.ProviderDemoActivity;
 import com.example.xcm.demo.animation.TestViewAnimationActivity;
 import com.example.xcm.demo.brightness.AutoBrightnessDemoActivity;
 import com.example.xcm.demo.crash.TestCrashActivity;
+import com.example.xcm.demo.grahpic.TestCameraActivity;
+import com.example.xcm.demo.grahpic.TestMediaProjectionActivity;
+import com.example.xcm.demo.grahpic.TestShotViewActivity;
+import com.example.xcm.demo.grahpic.TestSurfaceViewActivity;
+import com.example.xcm.demo.grahpic.TestVideoViewActivity;
+import com.example.xcm.demo.grahpic.opengl.AndroidGL2Activity;
+import com.example.xcm.demo.grahpic.opengl.TestGLActivity;
 import com.example.xcm.demo.handler.TestHandlerActivity;
+import com.example.xcm.demo.image.TestColorFilterActivity;
 import com.example.xcm.demo.input.TestInputRestrictedActivity;
+import com.example.xcm.demo.ipc.TestAIDLActivity;
 import com.example.xcm.demo.ipc.TestMemoryFileActivity;
 import com.example.xcm.demo.jni.TestJNIActivity;
 import com.example.xcm.demo.network.OkHttpTestActivity;
@@ -24,17 +26,16 @@ import com.example.xcm.demo.sensor.TestGravityActivity;
 import com.example.xcm.demo.sensor.TestLightSensorActivity;
 import com.example.xcm.demo.sensor.TestOrientationActivity;
 import com.example.xcm.demo.task.TestJobSchedulerActivity;
-import com.example.xcm.demo.grahpic.TestCameraActivity;
-import com.example.xcm.demo.grahpic.TestSurfaceViewActivity;
-import com.example.xcm.demo.grahpic.TestVideoViewActivity;
 import com.example.xcm.demo.view.TestAnimationDrawableActivity;
+import com.example.xcm.demo.view.TestCanvasActivity;
 import com.example.xcm.demo.view.TestDarkThemeActivity;
 import com.example.xcm.demo.view.TestForceDarkActivity;
 import com.example.xcm.demo.view.TestForceDarkActivity2;
 import com.example.xcm.demo.view.TestForceDarkActivity3;
+import com.example.xcm.demo.view.TestForceDarkActivity4;
 import com.example.xcm.demo.view.TestPadListViewActivity;
+import com.example.xcm.demo.view.TestShowViewOnChildThreadActivity;
 import com.example.xcm.demo.wms.TestPipActivity;
-import com.example.xcm.demo.view.TestWindowActivity;
 import com.example.xcm.demo.wms.TestWmsActivity;
 
 /**
@@ -103,11 +104,13 @@ public class RootCategoryContainer extends CategoryContainer<FirstLevelCategory>
         second = new SecondLevelCategory("view");
         second.mChildren.add(new Category(TestAnimationDrawableActivity.class));
         second.mChildren.add(new Category(TestPadListViewActivity.class));
-        second.mChildren.add(new Category(TestWindowActivity.class));
         second.mChildren.add(new Category(TestForceDarkActivity.class));
         second.mChildren.add(new Category(TestForceDarkActivity2.class));
         second.mChildren.add(new Category(TestForceDarkActivity3.class));
+        second.mChildren.add(new Category(TestForceDarkActivity4.class));
         second.mChildren.add(new Category(TestDarkThemeActivity.class));
+        second.mChildren.add(new Category(TestCanvasActivity.class));
+        second.mChildren.add(new Category(TestShowViewOnChildThreadActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
 
@@ -126,6 +129,7 @@ public class RootCategoryContainer extends CategoryContainer<FirstLevelCategory>
         first.mChildren.add(second);
         second = new SecondLevelCategory("image");
         second.mChildren.add(new Category(TestColorFilterActivity.class));
+        second.mChildren.add(new Category(TestShotViewActivity.class));
         first.mChildren.add(second);
         mChildren.add(first);
 

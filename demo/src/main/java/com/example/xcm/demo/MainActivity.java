@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (keyCode == 701) {
             Toast.makeText(this, "滑盖关闭", Toast.LENGTH_SHORT).show();
         } else if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Log.d(TAG, "onKeyDown: start mms");
+            return super.onKeyDown(keyCode, event);
         }
         return true;
     }

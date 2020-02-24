@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.xcm.demo">
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -33,18 +34,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".app.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.example.xcm.demo.MainActivity"
             android:configChanges="uiMode"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".notification.TestNotificationActivity" />
         <activity android:name=".ipc.TestAIDLActivity" />
         <activity android:name=".handler.TestHandlerActivity" />
@@ -63,7 +65,6 @@
             android:name=".wms.TestPipActivity"
             android:supportsPictureInPicture="true" />
         <activity android:name=".sensor.TestGravityActivity" />
-        <activity android:name=".view.TestWindowActivity" />
         <activity android:name=".network.OkHttpTestActivity" />
         <activity android:name=".wms.TestWmsActivity" />
         <activity android:name=".view.TestAnimationDrawableActivity" />
@@ -91,6 +92,12 @@
             android:theme="@style/forceDarkTheme" />
         <activity android:name=".image.TestColorFilterActivity" />
         <activity android:name=".ams.TestLockTaskActivity" />
+        <activity android:name=".view.TestCanvasActivity" />
+        <activity android:name=".view.TestShowViewOnChildThreadActivity" />
+        <activity android:name=".grahpic.TestShotViewActivity" />
+        <activity
+            android:name=".view.TestForceDarkActivity4"
+            android:theme="@style/forceDarkTheme" />
 
         <service
             android:name="com.example.xcm.demo.ipc.AIDLService"
@@ -111,7 +118,6 @@
         <service
             android:name=".task.MyJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service android:name=".view.TestWindowService" />
         <service
             android:name=".ipc.MemoryFetchService"
             android:process=":ashmem" />

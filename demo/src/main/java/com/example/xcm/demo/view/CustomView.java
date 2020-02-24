@@ -35,5 +35,6 @@ public class CustomView extends View {
         super.onDraw(canvas);
         Log.d(Config.TAG, "onDraw: width=" + canvas.getWidth() + ", height=" + canvas.getHeight());
         canvas.drawRect(new Rect(10, 10, 100, 100), mPaint);
+        Canvas canvas1 = new Canvas();
     }
 }

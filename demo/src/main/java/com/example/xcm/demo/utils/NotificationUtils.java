@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.example.xcm.demo.MainActivity;
@@ -36,11 +37,20 @@ public class NotificationUtils {
             channel.enableLights(true);
             channel.enableVibration(false);
             channel.setVibrationPattern(new long[]{0, 100, 0});
-            channel.setSound(null,null);
+            channel.setSound(null, null);
             channel.setLightColor(ledColor);
             manager.createNotificationChannel(channel);
 
             Toast.makeText(context, "111", Toast.LENGTH_SHORT).show();
+
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.remote_view);
+            remoteViews.setTextViewText(R.id.tv, "这是一个Test");//设置文本内容
+            remoteViews.setTextColor(R.id.tv, Color.parseColor("#abcdef"));//设置文本颜色
+            remoteViews.setImageViewResource(R.id.iv, R.drawable.ball);//设置图片
+            PendingIntent openActivity2Pending = PendingIntent.getActivity
+                    (context, 0, new Intent(context, MainActivity.class),
+                            PendingIntent.FLAG_UPDATE_CURRENT);//设置RemoveViews点击后启动界面
+            remoteViews.setOnClickPendingIntent(R.id.bt, openActivity2Pending);
             for (int i = 0; i < 1; i++) {
                 Notification n = new NotificationCompat.Builder(context, "xcm")
                         .setSmallIcon(R.mipmap.ic_launcher)             //一定要设置
@@ -51,6 +61,7 @@ public class NotificationUtils {
                         .setChannelId("xcm")
                         .setVibrate(new long[]{0, 100, 100, 200, 100, 300})
                         .setLights(channelColor, 1000, 1000)
+                        .setContent(remoteViews)
                         .setDefaults(Notification.DEFAULT_LIGHTS)
                         .setDefaults(defaultValue).build();
                 n.flags = Notification.FLAG_SHOW_LIGHTS | Notification.FLAG_AUTO_CANCEL;
